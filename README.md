@@ -21,5 +21,5 @@ up/down migrations
 ```
 
 fix dirty migration
-    in table `schema_migrations` set `version` on `000001` and `dirty` on `false`
+    in table `schema_migrations` set `version` on `1` and `dirty` on `false`
 
