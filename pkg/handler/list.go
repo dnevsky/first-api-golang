@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -74,7 +75,40 @@ func (h *Handler) getListById(c *gin.Context) {
 }
 
 func (h *Handler) updateList(c *gin.Context) {
+	status := "ok"
 
+	userId, err := getUserId(c)
+	if err != nil {
+		return
+	}
+
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "invalid id param")
+		return
+	}
+
+	var input models.UpdateListInput
+
+	if err := c.BindJSON(&input); err != nil {
+		fmt.Printf("%#v", err)
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	count, err := h.services.Update(userId, id, input)
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if count == 0 {
+		status = "nothing to update"
+	}
+
+	c.JSON(http.StatusOK, statusResponse{
+		Status: status,
+	})
 }
 
 func (h *Handler) deleteList(c *gin.Context) {
