@@ -7,9 +7,9 @@ import (
 	"syscall"
 
 	"github.com/dnevsky/firstapi"
-	"github.com/dnevsky/firstapi/pkg/handler"
-	"github.com/dnevsky/firstapi/pkg/repository"
-	"github.com/dnevsky/firstapi/pkg/service"
+	"github.com/dnevsky/firstapi/internal/handler"
+	"github.com/dnevsky/firstapi/internal/repository"
+	"github.com/dnevsky/firstapi/internal/service"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"

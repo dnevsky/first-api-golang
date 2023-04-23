@@ -1,8 +1,8 @@
 package service
 
 import (
+	"github.com/dnevsky/firstapi/internal/repository"
 	"github.com/dnevsky/firstapi/models"
-	"github.com/dnevsky/firstapi/pkg/repository"
 )
 
 type TodoListService struct {

@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/dnevsky/firstapi/internal/repository"
 	"github.com/dnevsky/firstapi/models"
-	"github.com/dnevsky/firstapi/pkg/repository"
 )
 
 const (

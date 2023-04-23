@@ -1,9 +1,11 @@
 package service
 
 import (
+	"github.com/dnevsky/firstapi/internal/repository"
 	"github.com/dnevsky/firstapi/models"
-	"github.com/dnevsky/firstapi/pkg/repository"
 )
+
+//go:generate mockgen -source=service.go -destination=mocks/mock.go
 
 type Authorization interface {
 	CreateUser(user models.User) (int, error)

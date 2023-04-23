@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/dnevsky/firstapi/pkg/service"
+	"github.com/dnevsky/firstapi/internal/service"
 	"github.com/gin-gonic/gin"
 )
 
