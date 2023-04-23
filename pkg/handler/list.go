@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -91,12 +90,11 @@ func (h *Handler) updateList(c *gin.Context) {
 	var input models.UpdateListInput
 
 	if err := c.BindJSON(&input); err != nil {
-		fmt.Printf("%#v", err)
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	count, err := h.services.Update(userId, id, input)
+	count, err := h.services.TodoList.Update(userId, id, input)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return

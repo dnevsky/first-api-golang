@@ -1,7 +1,10 @@
 package main
 
 import (
+	"context"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/dnevsky/firstapi"
 	"github.com/dnevsky/firstapi/pkg/handler"
@@ -40,8 +43,27 @@ func main() {
 	handlers := handler.NewHandler(services)
 
 	srv := new(firstapi.Server)
-	if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
-		logrus.Fatalf("error while start http server: %s", err.Error())
+	go func() {
+		if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
+			logrus.Fatalf("error while start http server: %s", err.Error())
+		}
+	}()
+
+	logrus.Print("TodoApp started")
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
+
+	<-quit
+
+	logrus.Print("TodoApp shutting down")
+
+	if err := srv.Shutdown(context.Background()); err != nil {
+		logrus.Errorf("error while stop server: %s", err.Error())
+	}
+
+	if err := db.Close(); err != nil {
+		logrus.Errorf("error while close db connect: %s", err.Error())
 	}
 
 }
