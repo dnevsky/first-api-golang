@@ -1,4 +1,4 @@
-The first attempts to write a RESTful api server on golang while maintaining the principle of a clean project architecture.
+Attempts to write a RESTful api server on golang while maintaining the principle of a clean project architecture.
 
 run postgres db in docker container
 ```
